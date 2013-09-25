@@ -61,7 +61,7 @@ How to render labels
 
 How to render help_text
 {% block _help %}
-{{ help_text }}
+{% if not nohelp %}{{ help_text }}{% endif %}
 {% endblock %}
 
 {% block input %}
@@ -86,7 +86,7 @@ How to render help_text
 {% block EmailInput %}{% use "input" field_type="email" %}{% endblock %}
 {% block URLInput %}{% use "input" fiel_type="url" %}{% endblock %}
 {% block PasswordInput %}{% use "input" field_type="password" value="" %}{% endblock %}
-{% block HiddenInput %}{% use "input" field_type="hidden" label="" %}{% endblock %}
+{% block HiddenInput %}{% use "input" field_type="hidden" nolabel=True nohelp=True %}{% endblock %}
 {% block FileInput %}{% use "input" field_type="file" value="" %}{% endblock %}
 {% block DateInput %}{% use "input" field_type="date" %}{% endblock %}
 {% block DateTimeInput %}{% use "input" field_type="datetime" %}{% endblock %}
