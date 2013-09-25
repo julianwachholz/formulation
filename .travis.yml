@@ -1,11 +1,20 @@
 language: python
+
 python:
   - "2.7"
   - "3.3"
+
 env:
-  - DJANGO=1.5
+  - DJANGO=Django==1.5.4
+  - DJANGO=https://github.com/django/django/archive/1.6b4.zip
+  - DJANGO=https://github.com/django/django/archive/master.zip
+
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then pip install -q Django==$DJANGO --use-mirrors; fi
-  - pip install -r requirements.txt --use-mirrors
+  - "pip install $DJANGO --use-mirrors"
+
 script:
-  - nosetests
+  - python testproject/manage.py test
+
+matrix:
+  allow_failures:
+    -env: DJANGO=https://github.com/django/django/archive/master.zip
