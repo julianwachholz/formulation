@@ -137,7 +137,7 @@ Fields not derived from InputField:
 
 {% block Select %}
 {% use "_label" %}
-<select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flat_attrs }}>
+<select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flat_attrs }} {{ multiple|yesno:"multiple,">
 {% for val, display in choices %}
     <option value="{{ val }}" {% if value == value|default:None %}selected{% endif %}>{{ display }}</option>
 {% endfor %}
@@ -147,13 +147,7 @@ Fields not derived from InputField:
 {% endblock %}
 
 {% block SelectMultiple %}
-{% use "_label" %}
-<select name="{{ html_name }}" id="{{ id }}" {{ widget.attrs|flat_attrs }} multiple>
-{% for val, display in choices %}
-    <option value="{{ val }}" {% if val in value %}selected{% endif %}>{{ display }}</option>
-{% endfor %}
-</select>
-{% use "_help" %}
+  {% use 'Select' multiple=True %}
 {% endblock %}
 {% block NullBooleanSelect %}{% use "Select" %}{% endblock %}
 
