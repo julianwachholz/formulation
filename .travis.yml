@@ -5,9 +5,12 @@ python:
   - "3.3"
 
 env:
-  - DJANGO=Django==1.5.4
-  - DJANGO=https://github.com/django/django/archive/1.6b4.zip
-  - DJANGO=https://github.com/django/django/archive/master.zip
+  global:
+    - PYTHONPATH=.
+  matrix:
+    - DJANGO=Django==1.5.4
+    - DJANGO=https://github.com/django/django/archive/1.6b4.zip
+    - DJANGO=https://github.com/django/django/archive/master.zip
 
 install:
   - "pip install $DJANGO --use-mirrors"
@@ -17,4 +20,4 @@ script:
 
 matrix:
   allow_failures:
-    -env: DJANGO=https://github.com/django/django/archive/master.zip
+    - env: DJANGO=https://github.com/django/django/archive/master.zip
