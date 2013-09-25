@@ -74,6 +74,7 @@ How to render help_text
     class="{{ css_classes }} {{ errors|yesno:"error," }}"
     {{ widget.attrs|flat_attrs }}
     {{ required|yesno:"required," }}
+    {{ autofocus|yesno:"autofocus," }}
     {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
 >
 {% endwith %}
@@ -114,6 +115,7 @@ Fields not derived from InputField:
 <textarea name="{{ html_name }}" id="{{ id }}"
     class="{{ css_classes }} {{ errors|yesno:"error," }}"
     {{ required|yesno:"required," }}
+    {{ autofocus|yesno:"autofocus," }}
     {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
     {{ widget.attrs|flat_attrs }}
 >{{ value }}</textarea>
