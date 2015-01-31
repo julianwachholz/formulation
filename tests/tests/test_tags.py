@@ -2,7 +2,7 @@ from django import forms
 from django.template import Context, Template, TemplateSyntaxError
 from django.template.loader import get_template
 from django.test import SimpleTestCase
-from django.test.utils import setup_test_template_loader, restore_template_loaders
+from ..helpers import setup_template_loader
 
 
 class TestForm(forms.Form):
@@ -43,11 +43,13 @@ class TemplateTestMixin(object):
         cls.context = Context({'form': TestForm()})
         for key, tmpl in cls.PARTIALS.items():
             cls.TEMPLATES[key] = cls.TEMPLATE_BASE.format(tmpl)
-        setup_test_template_loader(cls.TEMPLATES)
+        cls.override = setup_template_loader(cls.TEMPLATES)
+        cls.override.enable()
 
     @classmethod
     def tearDownClass(cls):
-        restore_template_loaders()
+        cls.override.disable()
+
 
 STOCK_TEMPLATE = '''{{% load formulation %}}{{% form 'test.form' %}}{}{{% endform %}}'''
 

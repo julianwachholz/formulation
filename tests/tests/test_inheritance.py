@@ -1,7 +1,7 @@
 from django.template import Context
 from django.template.loader import get_template
 from django.test import SimpleTestCase
-from django.test.utils import setup_test_template_loader, restore_template_loaders
+from ..helpers import setup_template_loader
 
 
 TEMPLATES = {
@@ -29,11 +29,12 @@ class InheritanceTests(SimpleTestCase):
 
     @classmethod
     def setUpClass(cls):
-        setup_test_template_loader(TEMPLATES)
+        cls.override = setup_template_loader(TEMPLATES)
+        cls.override.enable()
 
     @classmethod
     def tearDownClass(cls):
-        restore_template_loaders()
+        cls.override.disable()
 
     def test_inheritance(self):
         """
